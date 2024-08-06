@@ -1,6 +1,6 @@
 {
     "name": "spale777/php-sapb1",
-    "description": "A simple and easy to use PHP library for SAP Business One Service Layer API.",
+    "description": "A simple and easy to use PHP library for SAP Business One Service Layer API. Forked from https://github.com/syedhussim/php-sapb1",
     "type": "library",
     "autoload": {
         "psr-4": {
