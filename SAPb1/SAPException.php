@@ -12,7 +12,7 @@ class SAPException extends \Exception{
     public function __construct(Response $response){
         $this->statusCode = $response->getStatusCode();
         $message = '';
-        $erroCode = $this->code;
+        $errorCode = $this->code;
 
         if($response->getHeaders('Content-Type') == 'text/html'){
             $message = $response->getBody();
@@ -20,10 +20,10 @@ class SAPException extends \Exception{
 
         if($response->getHeaders('Content-Type') == 'application/json'){
             $message = $response->getJson()->error->message->value;
-            $erroCode = $response->getJson()->error->code;
+            $errorCode = $response->getJson()->error->code;
         }
         
-        parent::__construct($message, $erroCode);
+        parent::__construct($message ?? '', $errorCode ?? 0);
     }
     
     public function getStatusCode() : int{
