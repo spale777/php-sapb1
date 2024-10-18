@@ -15,17 +15,33 @@ class Service{
     /**
      * Initializes a new instance of Service.
      */
-    public function __construct(Config $configOptions, array $session, string $serviceName){
+    public function __construct(Config $configOptions, array $session, string $serviceName)
+    {
         $this->config = $configOptions;
         $this->session = $session;
         $this->serviceName = $serviceName;
     }
-    
+
+    public function setConfig(Config $config): void
+    {
+        $this->config = $config;
+    }
+
+    public function setSession(array $session): void
+    {
+        $this->session = $session;
+    }
+
+    public function getServiceName(): string
+    {
+        return $this->serviceName;
+    }
     /**
      * Creates an entity.
      * Throws SAPb1\SAPException if an error occurred.
      */
-    public function create(array $data, $returnResponse = false){
+    public function create(array $data, $returnResponse = false)
+    {
         
         $response = $this->doRequest('POST', $data);
 
@@ -48,7 +64,8 @@ class Service{
      * Updates an entity using $id. Returns true on success.
      * Throws SAPb1\SAPException if an error occurred.
      */
-    public function update($id, array $data, $returnResponse = false, $method = 'PATCH') : bool{
+    public function update($id, array $data, $returnResponse = false, $method = 'PATCH') : bool
+    {
         
         if(is_string($id)){
             $id = "'" . str_replace("'", "''", $id) . "'";
@@ -75,7 +92,8 @@ class Service{
      * Deletes an entity using $id. Returns true on success.
      * Throws SAPb1\SAPException if an error occurred.
      */
-    public function delete($id, $returnResponse = false) : bool{
+    public function delete($id, $returnResponse = false) : bool
+    {
         
         if(is_string($id)){
             $id = "'" . str_replace("'", "''", $id) . "'";
@@ -98,7 +116,8 @@ class Service{
      * Performs an action on an entity using $id. Returns true on success.
      * Throws SAPb1\SAPException if an error occurred.
      */
-    public function action($id, string $action, $returnResponse = false) : bool{
+    public function action($id, string $action, $returnResponse = false) : bool
+    {
         
         if(is_string($id)){
             $id = "'" . str_replace("'", "''", $id) . "'";
@@ -120,14 +139,16 @@ class Service{
     /**
      * Returns a new instance of SAPb1\Query.
      */
-    public function queryBuilder() : Query{
+    public function queryBuilder() : Query
+    {
         return new Query($this->config, $this->session, $this->serviceName, $this->headers);
     }
 
     /**
      * Specifies request headers.
      */
-    public function headers($headers) : Service{
+    public function headers($headers) : Service
+    {
         $this->headers = $headers;
         return $this;
     }
@@ -135,7 +156,8 @@ class Service{
     /**
      * Returns metadata for the service.
      */
-    public function getMetaData() : array{
+    public function getMetaData() : array
+    {
         $request = new Request($this->config->getServiceUrl('$metadata'), $this->config->getSSLOptions());
         $request->setMethod('GET');
         $request->setCookies($this->session);
@@ -186,7 +208,8 @@ class Service{
         return $meta;
     }
     
-    private function doRequest($method, $postData, $action = '') : Response{
+    private function doRequest($method, $postData, $action = '') : Response
+    {
         $request = new Request($this->config->getServiceUrl($this->serviceName) . $action, $this->config->getSSLOptions());
         $request->setMethod($method);
         $request->setCookies($this->session);
