@@ -20,6 +20,21 @@ class Query{
         $this->serviceName = $serviceName;
         $this->headers = $headers;
     }
+
+    public function setConfig(Config $config): void
+    {
+        $this->config = $config;
+    }
+
+    public function setSession(array $session): void
+    {
+        $this->session = $session;
+    }
+
+    public function setHeaders(array $headers): void
+    {
+        $this->headers = $headers;
+    }
     
     /**
      * Specifies the fields to return. Returns the current Query instance.
