@@ -27,13 +27,18 @@ class SAPClient{
     {
         return new Service($this->config, $this->session, $serviceName);
     }
-    
+
     /**
      * Returns the current SAP B1 session data.
      */
     public function getSession() : array
     {
         return $this->session;
+    }
+
+    public function getConfig(): Config
+    {
+        return $this->config;
     }
 
     /**
