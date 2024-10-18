@@ -99,7 +99,7 @@ class Service{
             $id = "'" . str_replace("'", "''", $id) . "'";
         }
 
-        $response = $this->doRequest('DELETE', '(' . $id . ')');
+        $response = $this->doRequest('DELETE', null, '(' . $id . ')');
 
         if($returnResponse){
             return $response;
@@ -116,7 +116,7 @@ class Service{
      * Performs an action on an entity using $id. Returns true on success.
      * Throws SAPb1\SAPException if an error occurred.
      */
-    public function action($id, string $action, $returnResponse = false) : bool
+    public function action($id, string $action, array $params, $returnResponse = false) : bool
     {
         
         if(is_string($id)){
